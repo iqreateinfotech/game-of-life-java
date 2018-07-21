@@ -1,0 +1,29 @@
+-sudo: required	
+-	
+-services:	
+-  - docker	
+-	
+-dist: trusty	
+-	
+-language: java	
+-	
+-java:	
+-  - 1.8	
+-	
+-env:	
+-  - DOCKER_REGISTRY=devops-docker.iqreate.com DOCKER_IMAGE_NAME=one_v2 DOCKER_IMAGE_VERSION_PREFIX=1.0.0	
+-	
+-install:	
+-  - pip install -r requirements.txt	
+-  - pip install -e .	
+-	
+-  # run the test	
+-  #- coverage run --source=tests -m pphptest tests/	
+-  #- coverage xml -i	
+-	
+-#before_script:	
+- # - git submodule update --init --remote scripts	
+-	
+-script:	
+-  - $TRABUILD_DIR/scripts/sonarqube.sh	
+-  - $TRABUILD_DIR/scripts/docker-build/build.sh
