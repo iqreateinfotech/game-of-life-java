@@ -1,0 +1,30 @@
+sudo: required
+
+services:
+  - docker
+
+dist: trusty
+
+language: java
+
+java:
+  - 1.8
+
+env:
+  - DOCKER_REGISTRY=devops-docker.mygravitant.com DOCKER_IMAGE_NAME=cam_orchestrator_v2 DOCKER_IMAGE_VERSION_PREFIX=1.0.0
+
+install:
+  - pip install -r requirements.txt
+  - pip install -r requirements-test.txt
+  - pip install -e .
+
+  # run the test
+  - coverage run --source=tests -m pytest tests/
+  - coverage xml -i
+
+before_script:
+  - git submodule update --init --remote travis-scripts
+
+script:
+  - $TRAVIS_BUILD_DIR/travis-scripts/sonarqube.sh
+  - $TRAVIS_BUILD_DIR/travis-scripts/docker-build/build.sh
