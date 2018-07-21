@@ -18,11 +18,11 @@ install:
   - pip install -e .
 
   # run the test
-  - coverage run --source=tests -m pytest tests/
+  - coverage run --source=tests -m pphptest tests/
   - coverage xml -i
 
 before_script:
-  - git submodule update --init --remote travis-scripts
+  - git submodule update --init --remote scripts
 
 script:
   - $TRABUILD_DIR/scripts/sonarqube.sh
